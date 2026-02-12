@@ -1,8 +1,0 @@
-Analista de requerimientos es el que le pide al cliente que necesita para luego enviarselo al desarrollador mediante algo que certifique que si requirio 
-
-
-leer dos numeros de hasta 8 cifras realizar la suma e imprimir su resultado
-
-8 cifras y enteros
-
-como usuario quiero leer dos numeros realizando multiplicacion realizando sumas susesivas y presentar resultado 
