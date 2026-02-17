@@ -17,11 +17,8 @@ public class Operacion {
         return a / b;
     }
 
-    public double raiz(double a){
-        if (a < 0){
-            System.out.println("Error: no existe raiz real de numero negativo");
-            return 0;
-        }
-        return Math.sqrt(a);
+    public double restar(double a, double b){
+        
+        return a - b;
     }
 }
