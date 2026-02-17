@@ -4,8 +4,10 @@ public class Operacion {
     public double sumar(double a,double b,double c){
         return a+b+c;
     }
-
-    public double multiplicar(double a,double b,double c){
+    public double multiplicardos(double a,double b){
+        return a*b;
+    }
+    public double multiplicartres(double a,double b,double c){
         return a*b*c;
     }
 
