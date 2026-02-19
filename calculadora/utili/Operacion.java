@@ -1,8 +1,11 @@
 package utili;
 
 public class Operacion {
-    public double sumar(double a,double b,double c){
+    public double sumartres(double a,double b,double c){
         return a+b+c;
+    }
+    public double sumardos(double a,double b){
+        return a+b;
     }
     public double multiplicardos(double a,double b){
         return a*b;
