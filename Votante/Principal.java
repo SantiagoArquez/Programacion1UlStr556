@@ -4,8 +4,17 @@ import util.Utilidades;
 
 import java.util.Date;
 
+
+public Votante(){
+    System.out.println("Inicio Contructor");
+}
+
+
 public class Principal {
     public static void main(String data[]) {
+        Votante = miVotante.new Votante();
+        
+
         Consola laConsola = new Consola();
         String elnombre = laConsola.leerCadena("Digite nombre");
         String elapellido = laConsola.leerCadena("Digite apellido");
