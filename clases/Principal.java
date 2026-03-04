@@ -6,5 +6,5 @@ public class Principal{
         corriente.mostrarDatosC();
     }
 }
-//crear contructores y sobre cargarlos
+//crear constructores y sobre cargarlos
 //padre hijo clase atributos encapula 2 constructores y los sobrecarga
