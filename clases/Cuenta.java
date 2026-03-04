@@ -1,8 +1,9 @@
 import java.util.Scanner;
 public class Cuenta{
 
-    public String numeroCuenta;
-    public double saldo;
+    //solo las clases hijas pueden acceder encapsulando de manera basica si fuera private necesita getters y setters 
+    protected String numeroCuenta;
+    protected double saldo;
     Scanner sc=new Scanner(System.in);
 
     // CONSTRUCTOR DE LA CLASE CUENTA
