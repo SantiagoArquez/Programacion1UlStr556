@@ -1,4 +1,4 @@
-public class Principal{
+public class cñaa{
     public static void main(String[] thebestbank){
         CuentaAhorros ahorro=new CuentaAhorros();
         ahorro.mostrarDatosA();
