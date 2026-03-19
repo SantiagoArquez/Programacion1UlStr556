@@ -108,7 +108,7 @@ public class VentanaBancoM extends JFrame {
         //espacio para el generado
         mensajeTxt2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         getContentPane().add(mensajeTxt2);
-        mensajeTxt2.setBounds(90, 130, 100, 30);
+        mensajeTxt2.setBounds(110, 130, 140, 30);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel3.setText("Numero:");
@@ -137,7 +137,7 @@ public class VentanaBancoM extends JFrame {
         //espacio del saldo
         mensajeTxt3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         getContentPane().add(mensajeTxt3);
-        mensajeTxt3.setBounds(327, 190, 140, 30);
+        mensajeTxt3.setBounds(110, 190, 140, 30);
 
         //Titulo del saldo
         jLabel6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
