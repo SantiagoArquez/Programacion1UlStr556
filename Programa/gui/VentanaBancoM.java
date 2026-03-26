@@ -2,13 +2,20 @@ package gui;
 
 
 import java.awt.event.ActionEvent;
+import java.util.concurrent.ThreadLocalRandom;
+
 import javax.swing.*;
+
+import datos.Cliente;
+import datos.Cuenta;
+import datos.CuentaAhorros;
+import datos.CuentaCorriente;
 
 
 public class VentanaBancoM extends JFrame {
     // componentes gráficos
-    private JButton btAhorros;
-    private JButton btCorriente;
+    private JRadioButton btAhorros;
+    private JRadioButton btCorriente;
     private JButton btEnviarApellido;
     private JButton btCrear;
     private JLabel jLabel1;
@@ -29,6 +36,7 @@ public class VentanaBancoM extends JFrame {
         this.setTitle("Ventana");
         this.iniciarComponentes();
     }
+
     private void iniciarComponentes() {
 
         this.setTitle("Banco Mio ");
@@ -44,16 +52,16 @@ public class VentanaBancoM extends JFrame {
         jLabel4 = new JLabel();
         jLabel5 = new JLabel();
         jLabel6 = new JLabel();
-        btAhorros = new JButton();
-        btCorriente = new JButton();
+        btAhorros = new JRadioButton();
+        btCorriente = new JRadioButton();
         btCrear = new JButton();
         btEnviarApellido = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Se realiza para que se cierre cuando le de X
-        getContentPane().setLayout(null); //desde aca se inicia a medir columnas y flas
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         //Titulo
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setText("Banco Mio");
         getContentPane().add(jLabel1);
@@ -66,51 +74,52 @@ public class VentanaBancoM extends JFrame {
         
         
         //Cuenta Tipo titulo
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 14));
         jLabel2.setText("Cuenta Tipo:");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(20, 60, 120, 30);
 
 
         //Ahorros titulo
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 14));
         jLabel4.setText("Ahorros");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(55, 90, 120, 30);
+        jLabel4.setBounds(70, 90, 120, 30);
 
 
 
         //Corriente titulo
-        jLabel5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Verdana", 0, 14));
         jLabel5.setText("Corriente");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(150, 90, 120, 30);
+        jLabel5.setBounds(160, 90, 120, 30);
 
 
 
         // la teoria dice que esto son las opciones PERO NO ME SIRVE AUN
-        ButtonGroup group = new ButtonGroup();
-        group.add(btAhorros);
-        group.add(btCorriente);
-
-        btAhorros.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        ButtonGroup grupoOpciones = new ButtonGroup();
+        btAhorros = new JRadioButton("Ahorros");
+        btAhorros.setBounds(40, 95, 20, 20);
+        btAhorros.setFont(new java.awt.Font("Tahoma", 1, 14));
         getContentPane().add(btAhorros);
-        btAhorros.setBounds(40, 102, 10, 10);
-
-        btCorriente.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        getContentPane().add(btCorriente);
-        btCorriente.setBounds(135, 102, 10, 10);
-
-
     
+        btCorriente = new JRadioButton("Corriente");
+        btCorriente.setBounds(135, 95, 20, 20);
+        btCorriente.setFont(new java.awt.Font("Tahoma", 1, 14));
+        getContentPane().add(btCorriente);
+
+        grupoOpciones.add(btAhorros);
+        grupoOpciones.add(btCorriente);
+
         //Numero titulo
 
         //espacio para el generado
-        mensajeTxt2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        mensajeTxt2.setFont(new java.awt.Font("Verdana", 0, 14));
         getContentPane().add(mensajeTxt2);
-        mensajeTxt2.setBounds(110, 130, 140, 30);
+        mensajeTxt2.setBounds(140, 130, 140, 30);
+        mensajeTxt2.setEditable(false);
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 14));
         jLabel3.setText("Numero:");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(20, 130, 120, 30);
@@ -121,92 +130,117 @@ public class VentanaBancoM extends JFrame {
         btEnviarApellido.setText("Generar");
         btEnviarApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEnviarApellidoActionPerformed(evt); // agregas un metodo
+                btGenerarNumeroActionPerformed(evt);
             }
         });
-        //LITERALMETE EL BOTON DONDE ESTA Generar
         getContentPane().add(btEnviarApellido);
         btEnviarApellido.setBounds(327, 130, 140, 27);
         setSize(new java.awt.Dimension(491, 375));
         setLocationRelativeTo(null);
 
-
-
-
-
         //espacio del saldo
-        mensajeTxt3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        mensajeTxt3.setFont(new java.awt.Font("Verdana", 0, 14));
         getContentPane().add(mensajeTxt3);
-        mensajeTxt3.setBounds(110, 190, 140, 30);
+        mensajeTxt3.setBounds(140, 190, 140, 30);
 
         //Titulo del saldo
-        jLabel6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Verdana", 0, 14));
         jLabel6.setText("Saldo inicial:");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(20, 190, 120, 30);
-
-
-
 
         //botonCrear
         btCrear.setFont(new java.awt.Font("Verdana", 0, 14));
         btCrear.setText("Crear");
         btCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEnviarApellidoActionPerformed(evt); // agregas un metodo
+                btCrearCuentaActionPerformed(evt);
             }
         });
-        //LITERALMETE EL BOTON DONDE ESTA Crear
         getContentPane().add(btCrear);
-        btCrear.setBounds(327, 240, 140, 27);
+        btCrear.setBounds(327, 190, 140, 27);
         setSize(new java.awt.Dimension(491, 375));
         setLocationRelativeTo(null);
 
-
-
-
         //espacio donde salga la cuenta creada
-        mensajeTxt4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        mensajeTxt4.setFont(new java.awt.Font("Verdana", 0, 14));
         getContentPane().add(mensajeTxt4);
-        mensajeTxt4.setBounds(20, 300, 450, 100);
+        mensajeTxt4.setBounds(20, 240, 450, 100);
+    }
+
+    // Metodo al presionar el boton Crear (eso estaba pidiendo el profe, perdido)
+    private void btCrearCuentaActionPerformed(ActionEvent evt) {
+
+        if(mensajeTxt2.getText().isEmpty() || mensajeTxt3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,
+            "No hay numero de cuenta o Saldo escrito ",
+            "Atencion",
+            JOptionPane.WARNING_MESSAGE);
+            return ;
+        }
+
+        Cuenta cuenta = null;
+        Cliente cliente = new Cliente("Cliente","000");
+
+        double saldo;
+
+        try{
+            saldo = Double.parseDouble(mensajeTxt3.getText());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Saldo invalido");
+            return;
+        }
+
+        if (btAhorros.isSelected()){
+            cuenta = new CuentaAhorros(cliente, mensajeTxt2.getText(), saldo);
+
+        }else if (btCorriente.isSelected()){
+            cuenta = new CuentaCorriente(cliente, mensajeTxt2.getText(), saldo);
+        }
+
+        if(cuenta == null){
+            JOptionPane.showMessageDialog(null,"Seleccione tipo de cuenta");
+            return;
+        }
+
+        JOptionPane.showMessageDialog(null,
+            "Crear."+cuenta.obtenerNumero()+" Saldo "+cuenta.getSaldo(),
+            "Información",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private String generarNumAleatorio(){
+        int numero =  ThreadLocalRandom.current().nextInt(1000, 10000);
+        String valor = String.valueOf(numero);
+        return valor;
+    }
+
+    // Metodo al presionar el boton Generar
+    private void btGenerarNumeroActionPerformed(ActionEvent evt) {
+        String numAleatorio = generarNumAleatorio();
 
 
+        if (this.mensajeTxt2.isEmpty() ){
+            this.mensajeTxt2 = "4524"+this.generarNumAleatorio();
+        }
+        if (this.mensajeTxt2.isEmpty() ){
 
+            this.mensajeTxt2 = "8524"+this.generarNumAleatorio();
+        }
 
+        if(btAhorros.isSelected()){
+            mensajeTxt2.setText("4524" + numAleatorio);
 
+        } else if(btCorriente.isSelected()){
+            mensajeTxt2.setText("8524" + numAleatorio);
 
-
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Seleccione la opción tipo cuenta",
+                "Atención",
+                JOptionPane.WARNING_MESSAGE);
+        }
+    }
 
     
-    }
-    // Metodo al presionar el boton nombre (eso estaba pidiendo el profe perdido)
-        private void btTipoCuentaAActionPerformed(ActionEvent evt) {
-        this.guardarNombre();
-    }
-
-    // Metodo al presionar el boton apellido
-    private void btEnviarApellidoActionPerformed(ActionEvent evt) {
-        this.guardarApellido();
-    }
-
-
-    private void guardarNombre() {
-    JOptionPane.showMessageDialog(this,"Aqui se guarda ");
-    String contenidoCaja = this.mensajeTxt.getText();
-    Docente docente = new Docente(contenidoCaja, "");//Contructor
-    this.mensajesTxt.append("Nombre: " + contenidoCaja + "\n");
-    String[] dato = new String[1];
-    dato[0] = docente.ObtenerNombre();
-    UtilArchivos.guardar("archivo.txt", dato, true);
-
 }
-    private void guardarApellido() {
-        JOptionPane.showMessageDialog(this,"Aqui se guarda el apellido");
-        String contenidoCaja = this.mensajeTxt2.getText();
-        Docente docente = new Docente("", contenidoCaja);//Contructor
-        this.mensajesTxt.append("Apellido: " + contenidoCaja + "\n");
-        String[] dato = new String[1];
-        dato[0] = docente.ObtenerApellido();
-        UtilArchivos.guardar("archivo.txt", dato, true);
-}
-    }
