@@ -1,0 +1,237 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.swing.*;
+
+import datos.Cliente;
+import datos.Cuenta;
+import datos.CuentaAhorros;
+import datos.CuentaCorriente;
+
+
+public class Ventana extends JFrame {
+    
+    // componentes gráficos
+    private JLabel titulo;
+    private JLabel lbNombreCliente;
+    private JLabel lbNumero;
+    private JLabel lbIdentificacion;
+    private JLabel lbSaldo;
+    private JLabel lbTipoCuenta;
+
+    private JTextField tNombreCliente;
+    private JTextField tIdentificacion;
+    private JTextField tSaldo;
+    private JTextField tNumeroCuenta;
+
+    private JRadioButton opcAhorros;
+    private JRadioButton opcCorriente;
+
+    private JButton bCrear;
+    private JButton bGenerar;
+
+    private String numCuentaAh;
+    private String numCuentaCr;
+
+    //constructor creo
+    public Ventana(){
+        this.numCuentaAh = "";
+        this.numCuentaCr = "";
+        this.initComponents();
+        this.tSaldo.setText("0");
+
+    
+    }
+    private void initComponents() {
+
+        //establece el titulo de la ventana
+        this.setTitle("Gestion Banco");
+        //tamaño de la ventana
+        setSize(500, 500);
+        //operacion para cerrar si dan x
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // COMPONENTES
+
+        //Titulo
+        titulo = new JLabel();
+        titulo.setText(" El banco MIO - ");
+        titulo.setBounds(100,20,150,30); // donde esta el titulo
+        titulo.setFont(new java.awt.Font("Tahoma", 1, 14));
+        titulo.setForeground(new java.awt.Color(204, 0, 0));
+        getContentPane().add(titulo);
+
+        //label titulo
+        lbIdentificacion = new JLabel();
+        lbIdentificacion.setText(" Identificación ");
+        lbIdentificacion.setBounds(50,50,120,30);
+        lbIdentificacion.setFont(new java.awt.Font("Tahoma", 1, 14));
+        lbIdentificacion.setForeground(Color.BLACK);
+        getContentPane().add(lbIdentificacion);
+
+        //Area de identificacion Jtextfield
+        tIdentificacion = new JTextField();
+        tIdentificacion.setBounds(100, 80, 150, 30);
+        tIdentificacion.setFont(new java.awt.Font("Tahoma", 1, 14));
+        getContentPane().add(tIdentificacion);
+
+        //titulo tipo cuenta
+        lbTipoCuenta = new JLabel();
+        lbTipoCuenta.setText(" Tipo Cuenta ");
+        lbTipoCuenta.setBounds(320,50,120,30);
+        lbTipoCuenta.setFont(new java.awt.Font("Tahoma", 1, 14));
+        lbTipoCuenta.setForeground(Color.BLACK);
+        getContentPane().add(lbTipoCuenta);
+
+
+        // la teoria dice que esto son las opciones
+        ButtonGroup grupoOpciones = new ButtonGroup();
+
+        opcAhorros = new JRadioButton("Ahorros");
+        opcAhorros.setBounds(300, 80, 100, 30);
+        opcAhorros.setFont(new java.awt.Font("Tahoma", 1, 14));
+        getContentPane().add(opcAhorros);
+
+        opcCorriente = new JRadioButton("Corriente");
+        opcCorriente.setBounds(300, 120, 100, 30);
+        opcCorriente.setFont(new java.awt.Font("Tahoma", 1, 14));
+        getContentPane().add(opcCorriente);
+
+        grupoOpciones.add(opcAhorros);
+        grupoOpciones.add(opcCorriente);
+
+        //titulo nombre del cliente label
+
+        lbNombreCliente = new JLabel();
+        lbNombreCliente.setText(" Nombre del cliente");
+        lbNombreCliente.setBounds(50,120,150,30);
+        lbNombreCliente.setFont(new java.awt.Font("Tahoma", 1, 14));
+        lbNombreCliente.setForeground(Color.BLUE);//COLOR DE LA LETRA
+        getContentPane().add(lbNombreCliente);
+
+        //espacio del nombre
+        tNombreCliente = new JTextField();
+        tNombreCliente.setBounds(100, 160, 150, 30);
+        tNombreCliente.setFont(new java.awt.Font("Tahoma", 1, 14));
+        getContentPane().add(tNombreCliente);
+        
+        //titulo del numero
+        lbNumero = new JLabel();
+        lbNumero.setText(" Número");
+        lbNumero.setBounds(50,190,100,30);
+        lbNumero.setFont(new java.awt.Font("Tahoma", 1, 14));
+        lbNumero.setForeground(Color.BLACK);
+        getContentPane().add(lbNumero);
+
+        //Espacio del numero
+        tNumeroCuenta = new JTextField();
+        tNumeroCuenta.setBounds(100, 220, 150, 30);
+        tNumeroCuenta.setEnabled(false);//no se modifica
+        tNumeroCuenta.setFont(new java.awt.Font("Tahoma", 1, 14));
+        getContentPane().add(tNumeroCuenta);
+
+
+        //BOTON
+        bGenerar = new JButton("Generar");
+        bGenerar.addActionListener(e -> {
+            this.generar();//llama directamente la funcion
+        });
+        bGenerar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        bGenerar.setBounds(300,220,100,30);
+        getContentPane().add(bGenerar);
+
+
+
+
+        //titulo saldo
+        lbSaldo = new JLabel();
+        lbSaldo.setText(" Saldo ");
+        lbSaldo.setBounds(50,260,100,30);
+        lbSaldo.setFont(new java.awt.Font("Tahoma", 1, 14));
+        lbSaldo.setForeground(Color.BLACK);
+        getContentPane().add(lbSaldo);
+
+        //espacio saldo
+        tSaldo = new JTextField();
+        tSaldo.setBounds(100, 300, 150, 30);
+        tSaldo.setFont(new java.awt.Font("Tahoma", 1, 14));
+        getContentPane().add(tSaldo);
+
+
+
+        //boton de crear
+        bCrear = new JButton("Registrar");
+        bCrear.addActionListener(e -> {
+            this.crear();
+        });
+        bCrear.setFont(new java.awt.Font("Tahoma", 1, 14));
+        bCrear.setBounds(300,300,100,30);
+        getContentPane().add(bCrear);
+
+        setLayout(null);
+        setLocationRelativeTo(null);
+    }
+
+
+    private void generar()
+    {
+        if (this.numCuentaAh.isEmpty() )
+            this.numCuentaAh = "4524"+this.generarNumAletorio();
+        if (this.numCuentaCr.isEmpty() )
+            this.numCuentaCr = "8524"+this.generarNumAletorio();
+
+        if (opcAhorros.isSelected()){
+            tNumeroCuenta.setText(this.numCuentaAh);
+        }else if (opcCorriente.isSelected()){
+            tNumeroCuenta.setText(this.numCuentaCr);
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    "Selecione la opción tipo cuenta.",
+                    "Atención",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void crear()
+    {
+        if(tNumeroCuenta.getText().isEmpty()|| tNombreCliente.getText().isEmpty()||tIdentificacion.getText().isEmpty()||tSaldo.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,
+            "No hay numero de cuenta ",
+            "Atencion",
+            JOptionPane.WARNING_MESSAGE);
+            return ;
+        }
+
+        if (!opcAhorros.isSelected() && !opcCorriente.isSelected()) {
+            JOptionPane.showMessageDialog(null,
+                    "Seleccione tipo de cuenta",
+                    "Atención",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Cuenta cuenta =null;
+        Cliente cliente = new Cliente(tNombreCliente.getText(),tIdentificacion.getText());
+
+        if (opcAhorros.isSelected()){
+            cuenta = new CuentaAhorros(cliente,tNumeroCuenta.getText(),0);
+        }else if (opcCorriente.isSelected()){
+            cuenta = new CuentaCorriente(cliente,tNumeroCuenta.getText(),0);
+        }
+
+        JOptionPane.showMessageDialog(null,
+                "Crear."+cuenta.obtenerNumero()+" Saldo "+cuenta.getSaldo(),
+                "Información",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private String generarNumAletorio(){
+       int numero =  ThreadLocalRandom.current().nextInt(1000, 10000);
+       String valor = String.valueOf(numero);
+       return valor;
+    }
+}
+
