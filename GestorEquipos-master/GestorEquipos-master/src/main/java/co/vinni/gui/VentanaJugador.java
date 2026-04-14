@@ -2,6 +2,7 @@ package co.vinni.gui;
 
 import co.vinni.datos.Equipo;
 import co.vinni.datos.Jugador;
+import co.vinni.datos.Pais;
 import co.vinni.datos.Posicion;
 import co.vinni.operaciones.OperacionesEquipo;
 import co.vinni.operaciones.OperacionesJugador;
@@ -19,6 +20,7 @@ public class VentanaJugador extends JFrame {
     private JDateChooser jdFechaNacimiento; // Recomendado para fechas
     private JComboBox<Posicion> cbPosicion;
     private JComboBox<Equipo> cbEquipos;
+    private JComboBox<Pais> cbPais;
     private JButton btnGuardar, btnCrearEquipo;
 
     private OperacionesEquipo operacionesEquipo;
@@ -41,6 +43,18 @@ public class VentanaJugador extends JFrame {
 
     private void inicializarComponentes() {
         int xLabel = 30, xCampo = 180, ancho = 200, alto = 25;
+
+        //direccion 
+        crearLabel("Dirección:", xLabel, 290);
+        txtDireccion = new JTextField();
+        txtDireccion.setBounds(xCampo, 290, ancho, alto);
+        add(txtDireccion);
+        //pais 
+
+        crearLabel("País:", xLabel, 320);
+        cbPais = new JComboBox<>(Pais.values());
+        cbPais.setBounds(xCampo, 320, ancho, alto);
+        add(cbPais);
 
         // Nombre
         crearLabel("Nombre:", xLabel, 30);
@@ -132,6 +146,8 @@ public class VentanaJugador extends JFrame {
             String nombre = txtNombre.getText().trim();
             String telefono = txtTelefono.getText().trim();
             int numero = Integer.parseInt(txtCamiseta.getText());
+            String direccion = txtDireccion.getText().trim(); //NUEVO
+            Pais pais = (Pais) cbPais.getSelectedItem();  //NUEVO
 
             // 2. Convertir fecha de JDateChooser (java.util.Date) a java.time.LocalDate
             java.util.Date dateSelected = jdFechaNacimiento.getDate();
@@ -152,14 +168,15 @@ public class VentanaJugador extends JFrame {
 
             // 4. Construir el objeto con el Builder
             Jugador nuevoJugador = Jugador.builder()
-                    .nombre(nombre)
-                    .fechaNacimiento(fechaNac)
-                    .numeroTelefono(Long.parseLong(telefono))
-                    .numero(numero)
-                    .posicion(pos)
-                    .equipo(equipoSel)
-                    .build();
-
+                .nombre(nombre)
+                .fechaNacimiento(fechaNac)
+                .numeroTelefono(Long.parseLong(telefono))
+                .numero(numero)
+                .posicion(pos)
+                .equipo(equipoSel)
+                .pais(pais)              // NUEVO
+                .direccion(direccion)    // NUEVO
+                .build();
             operacionesJugador.agregar(nuevoJugador);
 
             JOptionPane.showMessageDialog(this, "¡Jugador guardado con éxito!");

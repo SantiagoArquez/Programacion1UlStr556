@@ -30,6 +30,8 @@ public class OperacionesJugador {
                 .fechaNacimiento(fechaNacimiento)
                 .posicion( Posicion.valueOf(laPosicion))
                 .equipo(equipo)
+                .pais(Pais.valueOf(pais))   // NUEVO
+                .direccion(direccion)       // NUEVO
                 .build();
         this.agregar(jugador);
     }
